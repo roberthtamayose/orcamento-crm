@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 }
+
+
+.Container{
+  position: relative;
+  padding: 1rem;
+  border: 0.2rem solid #ececec;
+  border-radius: 8px;
+  margin-right: 0;
+  margin-left: 0;
+  color: #212529;
+}
+
+.RowItem{
+  position: relative;
+  padding: 0.3rem;
+  border-bottom: 0.2rem solid #ececec;
+  border-top: 0.2rem solid #f7951c;
+  border-radius: 8px;
+  margin-right: 0;
+  margin-left: 0;
+  margin-bottom: 10px;
+  color: #212529;
+}
+
+
+
+.btnItem {
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
