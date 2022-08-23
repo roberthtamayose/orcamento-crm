@@ -1,6 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import transpReduce from './Transportadora'
 import condPagReduce from './CondPagamento'
+import filialReduce from './Filiais'
+import pedidoReduce from './Pedidos'
+import clienteReduce from './Clientes'
+import dispReduce from './Disponibilidade'
+
+
+
+
 import api from "../services/api";
 import { combineReducers } from 'redux'
 
@@ -8,6 +16,10 @@ import { combineReducers } from 'redux'
 const reducer = combineReducers({
     transpReduce,
     condPagReduce,
+    filialReduce,
+    pedidoReduce,
+    clienteReduce,
+    dispReduce
   })
 
 const store =  configureStore({

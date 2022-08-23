@@ -1,5 +1,6 @@
 import './App.css';
 import Pedido from './screen/pedido/Pedido';
+import IncluirPedido from './screen/pedido/IncluirPedido';
 import Sidebar from './components/sidebars/Sidebars'
 import CondPagamento from './screen/condPagamento/CondPagamento'
 import IncluirCondPagamento from './screen/condPagamento/IncluirCondPagamento'
@@ -13,6 +14,12 @@ import { Container } from 'react-bootstrap';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getTransp } from './store/Transportadora';
+import { getCondpag } from './store/CondPagamento';
+import { getFilial } from './store/Filiais';
+import { getPedido } from './store/Pedidos';
+import { getCliente } from './store/Clientes';
+
+
 
 import {
   BrowserRouter,
@@ -26,16 +33,21 @@ function App() {
 
   useEffect(() => {
     dispatch(getTransp())
-  },[]);
+    dispatch(getFilial())
+    dispatch(getCondpag()) 
+    dispatch(getPedido())    
+    dispatch(getCliente())    
+
+  });
 
   return (
       <Container fluid>
         <Sidebar/>
-
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Pedido/>}/>
-            <Route path="/Pedidos" element={<Pedido/>}/>
+            <Route path="/Pedido" element={<Pedido/>}/>
+            <Route path="/Pedido/incluir" element={<IncluirPedido/>}/>
             <Route path="/transportadora" element={<Transportadora/>}/>
             <Route path="/transportadora/incluir" element={<IncluirTransportadora/>}/>
             <Route path="/transportadora/editar" element={<EditarTransportadora/>}/>

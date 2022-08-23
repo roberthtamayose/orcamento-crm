@@ -2,20 +2,29 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getTransp, deleteTransp } from '../../store/Transportadora';
 import { Container} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Transportadora = () => {
     const {dataTransp} = useSelector(state => state.transpReduce)
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
+    const [refresh, setRefresh] = useState(true);
     
     useEffect(() => {
         dispatch(getTransp())
-    });
+    },[refresh]);
 
     return(
         <Container className='Container'>
+            <h1>Transportadora</h1>
+            <button
+                aria-label="get transportadora"
+                onClick={() => setRefresh(!refresh)}
+                style={{margin: '10px'}}
+                >
+                Refresh
+            </button> 
             <button
                 aria-label="get transportadora"
                 onClick={() => navigate("/transportadora/incluir")}

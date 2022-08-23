@@ -1,82 +1,71 @@
 import React, { useEffect, useState } from "react";
-import { Container, Accordion } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import '../../App.css';
-import api from "../../services/api";
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { getPedido } from '../../store/Pedidos';
 
 const Pedido = () => {
-    const [prod, setProd] = useState([]);
-    const [cor, setCor] = useState([]);
+    const {dataPedido} = useSelector(state => state.pedidoReduce)
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
+    const [refresh, setRefresh] = useState(true);
+
 
     useEffect(() => {
-        const params = new URLSearchParams([['limit', 10]]);
-        api
-        .get("/disponibilidades/produtos", { params })
-        .then((response) => setProd(response.data))
-        .catch((err) => {
-          console.error("ops! ocorreu um erro" + err);
-        });
-    }, []);
+        dispatch(getPedido())
+    },[refresh]);
     
-    const getCor = (prod) => {
-        const params = new URLSearchParams([['prod',prod.substring(0, 9)]]);
-        api
-        .get("/disponibilidades/cores", { params })
-        .then((response) => setCor(response.data))
-        .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-        });
-    }
-    
-    if (!prod) return "No produto!"
     return(
         <Container className='Container'>
-            <Accordion flush>
-                {prod.map((item, key) => {
-                return(
-                    <Accordion.Item key={key} eventKey={key} style={{marginBottom:"10px"}} onClick={() => getCor(item.codProduto)}>
-                        <Accordion.Header className='RowItem'>{item.codProduto +' - '+ item.nmProduto +' - qtd: '+ item.qtdEstoque}</Accordion.Header>
-                        <Accordion.Body style={{overflow:"auto"}} >
-                            <table>
-                                <thead>
-                                    <tr style={{textAlign:"center"}}>
-                                        <th rowspam="true" style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>Cod. Cor</th> 
-                                        {/* <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>Nome Cor</th>     */}
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>37</th>    
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>38</th>       
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>39</th>       
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>40</th>    
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>89</th>      
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>94</th>       
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>95</th>       
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>Prg. Futura</th>   
-                                    </tr> 
-                                </thead>
-                                {cor.map((item1, index) => {
-                                    return(
-                                    <tbody key={index}>
-                                        <tr>
-                                            <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>{item1.codProduto.substring(10,item1.codProduto.length)}</td> 
-                                            {/* <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>item1.</td>     */}
-                                            <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>0</td>    
-                                            <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>0</td>       
-                                            <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>0</td>       
-                                            <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>40</td>    
-                                            <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>0</td>      
-                                            <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>0</td>       
-                                            <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>0</td>       
-                                            <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>
-                                                <a className="btnItem" style={{textDecoration: "none", cursor: "pointer", marginTop: "3px", marginBottom: "3px", backgroundColor: "#f8f9fa", borderColor: "#ddd"}}>
-                                                    <b>Prg. Futura</b>
-                                                </a>    
-                                            </td>   
-                                        </tr>
-                                    </tbody>   
-                                )})}
-                            </table>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                )})}
-            </Accordion>
+            <h1>Pedido</h1>
+            <button
+                aria-label="get Pedido"
+                onClick={() => setRefresh(!refresh)}
+                style={{margin: '10px'}}
+                >
+                Refresh
+            </button> 
+            <button
+                aria-label="get Pedido"
+                onClick={() => navigate("/Pedido/incluir")}
+                style={{margin: '10px'}}
+                >
+                Incluir
+            </button> 
+            <div className="table-responsive ">
+                <table className="table table-bordered" >
+                        <thead>
+                            <tr>
+                            <th scope="col">Pedido</th>
+                            <th scope="col">Emissão</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Obs</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Ativo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {dataPedido.map((item, key)=> {console.log(item)
+                            return(
+                                <tr key={key} className={key%2 === 1 ? "table-active":null}>
+                                    <td>{item.codPedido}</td>
+                                    <td>{item.dtEmissao}</td>
+                                    <td>{item.vlTotal}</td>
+                                    <td>{item.obsPedido}</td>
+                                    <td>{item.status}</td>
+                                    <td>{item.ativo}</td>
+                                    <td>
+                                        <a onClick={() => navigate("/Pedido/editar", {state: item})} className="btn btn-outline-secondary btn-lg" role="button" aria-disabled="true" style={{marginRight:"5px"}}>Editar</a>
+                                        {/* <a onClick={() => dispatch(deleteTransp(item, navigate("/Pedido")))} className="btn btn-outline-secondary btn-lg" role="button" aria-disabled="true">Deletar</a> */}
+                                    </td>
+                                </tr>
+                            )
+                        })} 
+                        </tbody>
+                </table>
+            </div>
+
         </Container>
     )
 }

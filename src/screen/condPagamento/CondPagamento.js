@@ -2,21 +2,29 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCondpag, deleteCondpag } from '../../store/CondPagamento';
 import { Container} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const CondPagamento = () => {
     const {dataCondPag} = useSelector(state => state.condPagReduce)
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
-    
+    const [refresh, setRefresh] = useState(true);
+
     useEffect(() => {
         dispatch(getCondpag())
-    });
+    },[refresh]);
 
     return(
         <Container className='Container'>
-            <h1>Cond. Pagamento</h1>
+            {/* <h1>Cond. Pagamento</h1> */}
+            <button
+                aria-label="get condpagamento"
+                onClick={() => setRefresh(!refresh)}
+                style={{margin: '10px'}}
+                >
+                Refresh
+            </button> 
             <button
                 aria-label="get condpagamento"
                 onClick={() => navigate("/condPagamento/incluir")}
