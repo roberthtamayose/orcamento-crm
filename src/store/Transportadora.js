@@ -2,9 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import api from "../services/api";
 
 
-const initialTransp = localStorage.getItem('dataTransp')
-  ? JSON.parse(localStorage.getItem('dataTransp'))
-  : [0]
+const initialTransp = []
 
 const transpReduce = createSlice({
     name: 'transportadora',
@@ -14,25 +12,25 @@ const transpReduce = createSlice({
     reducers: {
       fetchTransp: (state, action) => {
         state.dataTransp = action.payload;
-        localStorage.setItem('dataTransp', JSON.stringify(action.payload))
+        // localStorage.setItem('dataTransp', JSON.stringify(action.payload))
         },
 
       addTransp: (state, action) => {
         state.dataTransp = [...state.dataTransp, action.payload];
-        localStorage.setItem('dataTransp', JSON.stringify(action.payload))
+        // localStorage.setItem('dataTransp', JSON.stringify(action.payload))
         },
 
       editTransp: (state, action) => {
           state.dataTransp = [...state.dataTransp, action.payload];
           let index = state.dataTransp.indexOf(action.payload)
           state.dataTransp.splice(index, 1)
-          localStorage.setItem('dataTransp', JSON.stringify(action.payload))
+          // localStorage.setItem('dataTransp', JSON.stringify(action.payload))
         },
       
       delTransp: (state, action) => {
         let index = state.dataTransp.indexOf(action.payload)
         state.dataTransp.splice(index, 1)
-        localStorage.setItem('dataTransp', JSON.stringify(action.payload))
+        // localStorage.setItem('dataTransp', JSON.stringify(action.payload))
       }
     },
   })

@@ -11,9 +11,9 @@ const SelectCliente = () => {
 
 
   return(
-    <div>
-      <h2 className="text-center display-4">Escolha um cliente:</h2>
-      <Form.Select aria-label="Default select example" value={selectCli} onChange={(e) => dispatch(selectCliente(e.target.value))}>
+    <div style={{flexDirection:"row"}}>
+      <p style={{flex:"0.1"}}>Cliente:</p>
+      <Form.Select style={{flex:"0.1"}} value={selectCli} onChange={(e) => dispatch(selectCliente(e.target.value))}>
         <option>Selecione um cliente</option>
         {dataCliente.map((item, key ) => { 
           return (

@@ -18,6 +18,8 @@ import { getCondpag } from './store/CondPagamento';
 import { getFilial } from './store/Filiais';
 import { getPedido } from './store/Pedidos';
 import { getCliente } from './store/Clientes';
+import { getDispProd } from './store/Disponibilidade';
+
 
 
 
@@ -37,7 +39,7 @@ function App() {
     dispatch(getCondpag()) 
     dispatch(getPedido())    
     dispatch(getCliente())    
-
+    dispatch(getDispProd())    
   });
 
   return (

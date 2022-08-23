@@ -2,9 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import api from "../services/api";
 
 
-const initialFilial = localStorage.getItem('dataFilial')
-  ? JSON.parse(localStorage.getItem('dataFilial'))
-  : []
+const initialFilial = []
 
 const initialSelect= localStorage.getItem('select')
   ? JSON.parse(localStorage.getItem('select'))
@@ -19,7 +17,7 @@ const filialReduce = createSlice({
     reducers: {
       fetchFilial: (state, action) => {
         state.dataFilial = action.payload;
-        localStorage.setItem('dataFilial', JSON.stringify(action.payload))
+        // localStorage.setItem('dataFilial', JSON.stringify(action.payload))
       },
       setFilial: (state, action) => {
         state.select = action.payload;

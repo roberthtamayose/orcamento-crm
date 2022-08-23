@@ -2,9 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import api from "../services/api";
 
 
-const initialPedido = localStorage.getItem('dataPedido')
-  ? JSON.parse(localStorage.getItem('dataPedido'))
-  : [0]
+const initialPedido = []
 
 const pedidoReduce = createSlice({
     name: 'pedidos',
@@ -14,7 +12,7 @@ const pedidoReduce = createSlice({
     reducers: {
       fetchPedido: (state, action) => {
         state.dataPedido = action.payload;
-        localStorage.setItem('dataPedido', JSON.stringify(action.payload))
+        // localStorage.setItem('dataPedido', JSON.stringify(action.payload))
         },
 
       // addPedido: (state, action) => {

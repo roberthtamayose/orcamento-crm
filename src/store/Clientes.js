@@ -2,13 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 import api from "../services/api";
 
 
-const initialCliente = localStorage.getItem('dataCliente')
-  ? JSON.parse(localStorage.getItem('dataCliente'))
-  : [0]
+const initialCliente = []
 
-const initialSelect= localStorage.getItem('selectCli')
-  ? JSON.parse(localStorage.getItem('selectCli'))
-  : {}
+const initialSelect= {}
 
 const clienteReduce = createSlice({
     name: 'cliente',
@@ -19,7 +15,7 @@ const clienteReduce = createSlice({
     reducers: {
       fetchCliente: (state, action) => {
         state.dataCliente = action.payload;
-        localStorage.setItem('dataCliente', JSON.stringify(action.payload))
+        // localStorage.setItem('dataCliente', JSON.stringify(action.payload))
         },
       setCliente: (state, action) => {
           state.selectCli = action.payload;

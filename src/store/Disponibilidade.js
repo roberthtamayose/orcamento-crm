@@ -2,30 +2,20 @@ import { createSlice } from '@reduxjs/toolkit'
 import api from "../services/api";
 
 
-const initialProd = localStorage.getItem('initialProd')
-  ? JSON.parse(localStorage.getItem('initialProd'))
-  : [0]
-
-const initialEst = localStorage.getItem('initialProd')
-  ? JSON.parse(localStorage.getItem('initialProd'))
-  : [0]
+const initialProd =  []
 
 const dispReduce = createSlice({
     name: 'produto',
     initialState: {
       initialProd: initialProd,
-      initialEst: initialEst
     },
     reducers: {
       fetchDispProd: (state, action) => {
         state.initialProd = action.payload;
-        localStorage.setItem('initialProd', JSON.stringify(action.payload))
+        // localStorage.setItem('initialProd', JSON.stringify(action.payload))
         },
 
-      fetchDispEst: (state, action) => {
-        state.initialEst = action.payload;
-        localStorage.setItem('initialEst', JSON.stringify(action.payload))
-        },
+      
 
       // addTransp: (state, action) => {
       //   state.initialProd = [...state.initialProd, action.payload];

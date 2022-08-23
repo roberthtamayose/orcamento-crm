@@ -46,7 +46,7 @@ const Pedido = () => {
                             </tr>
                         </thead>
                         <tbody>
-                        {dataPedido.map((item, key)=> {console.log(item)
+                        {dataPedido.map((item, key)=> {
                             return(
                                 <tr key={key} className={key%2 === 1 ? "table-active":null}>
                                     <td>{item.codPedido}</td>

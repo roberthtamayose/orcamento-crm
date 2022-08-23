@@ -2,9 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import api from "../services/api";
 
 
-const initialCondPagamento = localStorage.getItem('dataCondPag')
-  ? JSON.parse(localStorage.getItem('dataCondPag'))
-  : [0]
+const initialCondPagamento = []
 
 const condPagReduce = createSlice({
     name: 'condPagamento',
@@ -14,25 +12,25 @@ const condPagReduce = createSlice({
     reducers: {
       fetchCondPag: (state, action) => {
         state.dataCondPag = action.payload;
-        localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
+        // localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
         },
 
       addCondPag: (state, action) => {
         state.dataCondPag = [...state.dataCondPag, action.payload];
-        localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
+        // localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
         },
 
       editCondPag: (state, action) => {
           state.dataCondPag = [...state.dataCondPag, action.payload];
           let index = state.dataCondPag.indexOf(action.payload)
           state.dataCondPag.splice(index, 1)
-          localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
+          // localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
         },
       
       delCondPag: (state, action) => {
         let index = state.dataCondPag.indexOf(action.payload)
         state.dataCondPag.splice(index, 1)
-        localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
+        // localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
       }
     },
   })
