@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from 'react-bootstrap';
 import '../../App.css';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { getPedido } from '../../store/Pedidos';
+// import { getPedido } from '../../store/Pedidos';
 
 const Pedido = () => {
     const {dataPedido} = useSelector(state => state.pedidoReduce)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const navigate = useNavigate();
     const [refresh, setRefresh] = useState(true);
 
 
-    useEffect(() => {
-        dispatch(getPedido())
-    },[refresh]);
+    // useEffect(() => {
+    //     dispatch(getPedido())
+    // },[refresh]);
     
     return(
         <Container className='Container'>
@@ -56,7 +56,7 @@ const Pedido = () => {
                                     <td>{item.status}</td>
                                     <td>{item.ativo}</td>
                                     <td>
-                                        <a onClick={() => navigate("/Pedido/editar", {state: item})} className="btn btn-outline-secondary btn-lg" role="button" aria-disabled="true" style={{marginRight:"5px"}}>Editar</a>
+                                        <a href="/#" onClick={() => navigate("/Pedido/editar", {state: item})} className="btn btn-outline-secondary btn-lg" role="button" aria-disabled="true" style={{marginRight:"5px"}}>Editar</a>
                                         {/* <a onClick={() => dispatch(deleteTransp(item, navigate("/Pedido")))} className="btn btn-outline-secondary btn-lg" role="button" aria-disabled="true">Deletar</a> */}
                                     </td>
                                 </tr>

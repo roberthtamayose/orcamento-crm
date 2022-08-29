@@ -1,6 +1,7 @@
 import './App.css';
 import Pedido from './screen/pedido/Pedido';
 import IncluirPedido from './screen/pedido/IncluirPedido';
+import EditarCarrinho from './screen/pedido/EditarCarrinho';
 import Sidebar from './components/sidebars/Sidebars'
 import CondPagamento from './screen/condPagamento/CondPagamento'
 import IncluirCondPagamento from './screen/condPagamento/IncluirCondPagamento'
@@ -19,6 +20,7 @@ import { getFilial } from './store/Filiais';
 import { getPedido } from './store/Pedidos';
 import { getCliente } from './store/Clientes';
 import { getDispProd } from './store/Disponibilidade';
+
 
 
 
@@ -50,6 +52,7 @@ function App() {
             <Route path="/" element={<Pedido/>}/>
             <Route path="/Pedido" element={<Pedido/>}/>
             <Route path="/Pedido/incluir" element={<IncluirPedido/>}/>
+            <Route path="/Pedido/editar" element={<EditarCarrinho/>}/>
             <Route path="/transportadora" element={<Transportadora/>}/>
             <Route path="/transportadora/incluir" element={<IncluirTransportadora/>}/>
             <Route path="/transportadora/editar" element={<EditarTransportadora/>}/>

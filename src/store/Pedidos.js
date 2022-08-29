@@ -40,7 +40,9 @@ const pedidoReduce = createSlice({
 
   ///////////////////////////  Actions ///////////////////////////////
 
-const { fetchPedido, addPedido, editPedido, delPedido } = pedidoReduce.actions
+// const { fetchPedido, addPedido, editPedido, delPedido } = pedidoReduce.actions
+const { fetchPedido } = pedidoReduce.actions
+
  
 export const getPedido = () => async dispatch => {
     try {

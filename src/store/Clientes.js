@@ -4,7 +4,9 @@ import api from "../services/api";
 
 const initialCliente = []
 
-const initialSelect= {}
+const initialSelect= localStorage.getItem('selectCli')
+  ? JSON.parse(localStorage.getItem('selectCli'))
+  : {}
 
 const clienteReduce = createSlice({
     name: 'cliente',

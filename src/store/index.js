@@ -5,8 +5,7 @@ import filialReduce from './Filiais'
 import pedidoReduce from './Pedidos'
 import clienteReduce from './Clientes'
 import dispReduce from './Disponibilidade'
-
-
+import carrinhoReduce from './Carrinho'
 
 
 import api from "../services/api";
@@ -19,7 +18,8 @@ const reducer = combineReducers({
     filialReduce,
     pedidoReduce,
     clienteReduce,
-    dispReduce
+    dispReduce,
+    carrinhoReduce
   })
 
 const store =  configureStore({
