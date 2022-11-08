@@ -6,7 +6,7 @@ const initialCliente = []
 
 const initialSelect= localStorage.getItem('selectCli')
   ? JSON.parse(localStorage.getItem('selectCli'))
-  : {}
+  : 0
 
 const clienteReduce = createSlice({
     name: 'cliente',
@@ -53,7 +53,7 @@ const { fetchCliente, setCliente} = clienteReduce.actions
  
 export const getCliente = () => async dispatch => {
     try {
-      const params = new URLSearchParams([['limit', 10]]);
+      const params = new URLSearchParams([['vend_id', 1]]);
       await api.get('/clientes', { params })
           .then((response) => dispatch(fetchCliente(response.data)))
     }

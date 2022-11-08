@@ -11,16 +11,16 @@ const SelectCliente = () => {
 
 
   return(
-    <div style={{ display: "flex", flexDirection:"row"}}>
-      <div style={{ marginRight: "10px", justifySelf:"center"}}>
+    <div className="flex flex-row">
+      <div className="mr-2" >
         <h4>Cliente:</h4>
       </div>
       <div>
-        <Form.Select value={selectCli} onChange={(e) => dispatch(selectCliente(e.target.value))}>
-          <option>Selecione um cliente</option>
+        <Form.Select  value={selectCli} onChange={(e) => dispatch(selectCliente(e.target.value))}>
+          <option value={0}>Selecione um cliente</option>
           {dataCliente.map((item, key ) => { 
             return (
-              <option key={key} value={item.idCliente}>{item.nmCliente}</option>
+              <option className="text-sm" key={key} value={item.id}>{item.nomeCliente}</option>
             )
           })}
         </Form.Select>

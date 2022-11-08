@@ -12,17 +12,17 @@ const Sidebar = () => {
 
 
   return(
-    <>
+    <div className="fixed top-0 left-0 right-0">
     {[false].map((expand) => (
-      <Navbar key={expand} bg="light" expand={expand} className="mb-3">
+      <Navbar key={expand} bg="light" expand={expand} className="mb-3 ">
         <Container fluid>
           <NavDropdown
-            title={select.nmFilial}
+            title={select.nomeFilial}
             id={`offcanvasNavbarDropdown-expand-${expand}`}
           >
-            {dataFilial.map((item) => {return (<NavDropdown.Item key={item.idFilial} onClick={() => dispatch(selectFilial(item))}> {item.nmFilial} </NavDropdown.Item>)})}
+            {dataFilial.map((item) => {return (<NavDropdown.Item key={item.id} onClick={() => dispatch(selectFilial(item))}> {item.nomeFilial} </NavDropdown.Item>)})}
           </NavDropdown>
-          <Navbar.Brand href="#">Nova Silk</Navbar.Brand>
+          <Navbar.Brand >Nova Silk</Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
@@ -40,28 +40,29 @@ const Sidebar = () => {
                   <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                     Usuario Teste
                   </Offcanvas.Title>
-                  <NavDropdown
+                  {/* <NavDropdown
                     title="Escolha Filial"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
                     <NavDropdown.Item href="#action3"> Action </NavDropdown.Item>
                     <NavDropdown.Item href="#action4"> Another action </NavDropdown.Item>
-                  </NavDropdown>
+                  </NavDropdown> */}
                 </Nav>
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link href="/transportadora">transportadoras</Nav.Link>
-                <Nav.Link href="/Pedido">Pedidos</Nav.Link>
-                <Nav.Link href="/CondPagamento">Condição de Pagamento</Nav.Link>
+                <Nav.Link href="/transportadoras">transportadora</Nav.Link>
+                {/* <Nav.Link href="/Pedido">Pedidos</Nav.Link> */}
+                <Nav.Link href="/condPagamentos">Condição de Pagamento</Nav.Link>
+                <Nav.Link href="/orcamentos">Orçamento</Nav.Link>
               </Nav>
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
     ))}
-    </>
+    </div>
   )
 }
 

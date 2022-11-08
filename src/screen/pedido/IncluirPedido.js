@@ -69,7 +69,7 @@ const AddProdCarrinho = (props) => {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form >
                         <Row>
                             <Col>
                                 <Form.Group className="mb-3" >

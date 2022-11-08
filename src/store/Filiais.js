@@ -43,9 +43,9 @@ export const getFilial = () => async dispatch => {
     }
 }
 
-export const selectFilial = (idfilial) => async dispatch => {
+export const selectFilial = (filial) => async dispatch => {
   try {
-    dispatch(setFilial(idfilial))
+    dispatch(setFilial(filial))
   }
   catch (e) {
       return console.error(e.message);

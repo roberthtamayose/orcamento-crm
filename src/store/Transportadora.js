@@ -16,7 +16,7 @@ const transpReduce = createSlice({
         },
 
       addTransp: (state, action) => {
-        state.dataTransp = [...state.dataTransp, action.payload];
+        state.dataTransp = [...state.dataTransp]
         // localStorage.setItem('dataTransp', JSON.stringify(action.payload))
         },
 
@@ -66,8 +66,8 @@ export const postTransp = (form, cb) => async dispatch => {
 
 export const putTransp = (form,cb) => async dispatch => {
   try {
-    const params = new URLSearchParams([['idTransp ', form.idTransp]]);
-    await api.put(`/transportadoras/${form.idTransp}`, form, params)
+    const params = new URLSearchParams([['id', form.id]]);
+    await api.put(`/transportadoras/${form.id}`, form, params)
         .then((response) => dispatch(editTransp(response.data))).then(cb)
   }
   catch (e) {
@@ -77,8 +77,8 @@ export const putTransp = (form,cb) => async dispatch => {
 
 export const deleteTransp = (form,cb) => async dispatch => {
   try {
-    const params = new URLSearchParams([['idTransp ', form.idTransp]]);
-    await api.delete(`/transportadoras/${form.idTransp}`, form, params)
+    const params = new URLSearchParams([['id ', form.id]]);
+    await api.delete(`/transportadoras/${form.id}`, form, params)
         .then(() => dispatch(delTransp(form))).then(cb)
   }
   catch (e) {

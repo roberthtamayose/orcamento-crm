@@ -1,22 +1,22 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getCondpag, deleteCondpag } from '../../store/CondPagamento';
+import { getOrcamento } from '../../store/Orcamentos';
 import { Container} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
-const CondPagamento = () => {
-    const {dataCondPag} = useSelector(state => state.condPagReduce)
+const Orcamento = () => {
+    const {dataOrcamento} = useSelector(state => state.orcamentoReduce)
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
     const [refresh, setRefresh] = useState(true);
 
     useEffect(() => {
-        dispatch(getCondpag())
+        dispatch(getOrcamento())
     },[refresh]);
 
     
-    const Item = ({item, index}) => {
+    const Item = ({item}) => {
         useEffect(() => {
         },[item]);
         const [showModal, setShowModal] = useState(false);
@@ -48,7 +48,7 @@ const CondPagamento = () => {
                                     <button
                                         className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                         type="button"
-                                        onClick={() => dispatch(deleteCondpag(item, () => {setRefresh(!refresh);setShowModal(false)}))}
+                                        // onClick={() => dispatch(deleteCondpag(item, () => {setRefresh(!refresh);setShowModal(false)}))}
                                     >
                                         Sim
                                     </button>
@@ -62,10 +62,10 @@ const CondPagamento = () => {
         }
 
         return(
-            <>
-                <tr className="bg-gray-50 border dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 "  key={index} >
-                    <td className="py-2 px-6">{item.codCondPag}</td>
-                    <td className="py-2 px-6">{item.nomeCondPag}</td>
+                <tr className="bg-gray-50 border dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 "  >
+                    <td className="py-2 px-6">{item.numOrc}</td>
+                    <td className="py-2 px-6">{item.numRevisao}</td>
+                    <td className="py-2 px-6">{item.cliente.nomeCliente}</td>
                     <td className="py-2 px-10">{item.ativo}</td>
                     <td className="flex flex-row py-2 px-6">
                         <button onClick={() => navigate("/condPagamentos/editar", {state: item})} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
@@ -81,13 +81,12 @@ const CondPagamento = () => {
                     </td>
                     <td>{showModal ? <Modal item={item}/> : null}</td>
                 </tr>
-            </>
         )
     }
 
     return(              
         <div className="flex flex-col items-center pt-16 h-screen">
-            <h1>Condição de pagamento</h1>
+            <h1>Orçamentos</h1>
             <div className="flex py-2 px-2 bg-white dark:bg-gray-500 ">
                 {/* <div className="relative mt-1"> */}
                     <div className=" flex flex-row rounded-lg border border-gray-300">
@@ -113,8 +112,11 @@ const CondPagamento = () => {
                             <th scope="col" className="w-1/5 py-2 px-6">
                                 Codigo
                             </th>
-                            <th scope="col" className="w-3/5 py-2 px-6">
-                                Nome
+                            <th scope="col" className="w-1/5 py-2 px-6">
+                                Revisão
+                            </th>
+                            <th scope="col" className="w-2/5 py-2 px-6">
+                                Cliente
                             </th>
                             <th scope="col" className="w-1/6 py-2 px-6">
                                 Ativo
@@ -125,9 +127,9 @@ const CondPagamento = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {dataCondPag.map((item, index)=> {
+                    {dataOrcamento.map((item, index)=> {
                         return(
-                            <Item item={item} index={index}/>
+                            <Item item={item} key={index}/>
                         )
                     })} 
                     </tbody>
@@ -139,53 +141,4 @@ const CondPagamento = () => {
 
 
 
-export default CondPagamento
-
-
-// return(
-//     <Container className='Container'>
-//         {/* <h1>Cond. Pagamento</h1> */}
-//         <button
-//             aria-label="get condpagamento"
-//             onClick={() => setRefresh(!refresh)}
-//             style={{margin: '10px'}}
-//             >
-//             Refresh
-//         </button> 
-//         <button
-//             aria-label="get condpagamento"
-//             onClick={() => navigate("/condPagamentos/incluir")}
-//             style={{margin: '10px'}}
-//             >
-//             Incluir
-//         </button> 
-//         <div className="table-responsive ">
-//             <table className="table table-bordered" >
-//                 <thead>
-//                     <tr>
-//                     <th scope="col">ID ERP</th>
-//                     <th scope="col">Nome</th>
-//                     <th scope="col">Ativo</th>
-//                     <th scope="col">Ações</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                 {dataCondPag.map((item, key)=> {
-//                     return(
-//                         <tr key={key} className={key%2 === 1 ? "table-active":null}>
-//                             <td>{item.codCondPag}</td>
-//                             <td>{item.nomeCondPag}</td>
-//                             <td>{item.ativo}</td>
-//                             <td>
-//                                 <a onClick={() => navigate("/condPagamentos/editar", {state: item})} className="btn btn-outline-secondary btn-lg" role="button" aria-disabled="true" style={{marginRight:"5px"}}>Editar</a>
-//                                 <a onClick={() => dispatch(deleteCondpag(item, navigate("/condPagamentos")))} className="btn btn-outline-secondary btn-lg" role="button" aria-disabled="true">Deletar</a>
-//                             </td>
-//                         </tr>
-//                     )
-//                 })} 
-//                 </tbody>
-//             </table>
-//         </div>
-
-//     </Container>
-// )
+export default Orcamento

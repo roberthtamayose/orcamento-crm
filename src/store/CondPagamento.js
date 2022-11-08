@@ -16,7 +16,7 @@ const condPagReduce = createSlice({
         },
 
       addCondPag: (state, action) => {
-        state.dataCondPag = [...state.dataCondPag, action.payload];
+        state.dataCondPag = [...state.dataCondPag];
         // localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
         },
 
@@ -66,8 +66,8 @@ export const postCondpag = (form, cb) => async dispatch => {
 
 export const putCondpag = (form,cb) => async dispatch => {
   try {
-    const params = new URLSearchParams([['idCondPag ', form.idCondPag]]);
-    await api.put(`/condpagamentos/${form.idCondPag}`, form, params)
+    const params = new URLSearchParams([['id ', form.id]]);
+    await api.put(`/condpagamentos/${form.id}`, form, params)
         .then((response) => dispatch(editCondPag(response.data))).then(cb)
   }
   catch (e) {
@@ -77,8 +77,8 @@ export const putCondpag = (form,cb) => async dispatch => {
 
 export const deleteCondpag = (form,cb) => async dispatch => {
   try {
-    const params = new URLSearchParams([['idCondPag ', form.idCondPag]]);
-    await api.delete(`/condpagamentos/${form.idCondPag}`, form, params)
+    const params = new URLSearchParams([['id ', form.id]]);
+    await api.delete(`/condpagamentos/${form.id}`, form, params)
         .then(() => dispatch(delCondPag(form))).then(cb)
   }
   catch (e) {

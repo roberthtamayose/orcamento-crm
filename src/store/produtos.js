@@ -4,7 +4,7 @@ import api from "../services/api";
 
 const initialProd =  []
 
-const dispReduce = createSlice({
+const prodReduce = createSlice({
     name: 'produto',
     initialState: {
       initialProd: initialProd,
@@ -37,17 +37,17 @@ const dispReduce = createSlice({
     },
   })
 
-export default dispReduce.reducer
+export default prodReduce.reducer
 
 
   ///////////////////////////  Actions ///////////////////////////////
 
-const { fetchDispProd, fetchDispEst } = dispReduce.actions
+const { fetchDispProd, fetchDispEst } = prodReduce.actions
  
 export const getDispProd = () => async dispatch => {
     try {
-      const params = new URLSearchParams([['limit', 10]]);
-      await api.get('/disponibilidades/produtos', { params })
+      const params = new URLSearchParams([["filial", "02"]]);
+      await api.get('/produtos', { params })
           .then((response) => dispatch(fetchDispProd(response.data)))
     }
     catch (e) {

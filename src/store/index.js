@@ -2,11 +2,11 @@ import { configureStore } from '@reduxjs/toolkit'
 import transpReduce from './Transportadora'
 import condPagReduce from './CondPagamento'
 import filialReduce from './Filiais'
-import pedidoReduce from './Pedidos'
+import orcamentoReduce from './Orcamentos'
 import clienteReduce from './Clientes'
-import dispReduce from './Disponibilidade'
+import prodReduce from './produtos'
 import carrinhoReduce from './Carrinho'
-
+import userReduce from './Usuarios'
 
 import api from "../services/api";
 import { combineReducers } from 'redux'
@@ -16,10 +16,11 @@ const reducer = combineReducers({
     transpReduce,
     condPagReduce,
     filialReduce,
-    pedidoReduce,
+    orcamentoReduce,
     clienteReduce,
-    dispReduce,
-    carrinhoReduce
+    prodReduce,
+    carrinhoReduce,
+    userReduce
   })
 
 const store =  configureStore({
