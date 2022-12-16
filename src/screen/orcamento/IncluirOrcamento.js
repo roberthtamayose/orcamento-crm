@@ -1,5 +1,5 @@
 ///////////////// HOOKS //////////////
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 // import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 ///////////////// STORE //////////////
@@ -7,8 +7,8 @@ import { useSelector, useDispatch } from 'react-redux';
 // import { getDispProd, getDispEst } from '../../store/Disponibilidade';
 import api from "../../services/api";
 // import { postCarrinho } from '../../store/Carrinho';
-import { postOrcamento} from '../../store/Orcamentos';
-
+import { postOrcamento } from '../../store/Orcamentos';
+import { getDispProd } from '../../store/produtos';
 ///////////////// COMPONENTS //////////////
 import { Accordion, Button, Modal, Form, Row, Col, InputGroup} from 'react-bootstrap';
 import SelectCliente from '../../components/Clientes/SelectCliente'
@@ -31,7 +31,11 @@ const IncluirOrcamento = () => {
     const [cor, setCor] = useState([]);
     const [carrinho, setCarrinho] = useState([]);
 
-    
+      
+    useEffect(() => {
+       dispatch(getDispProd())  
+    },[]);
+
 
 const AddProdCarrinho = (props) => {
         const [formProd, setFormProd] = useState({
@@ -179,9 +183,9 @@ const AddProdCarrinho = (props) => {
     }
     
 
-    const ItemCores = ({cores, key}) => {
+    const ItemCores = ({cores}) => {
         return(
-            <tbody key={key}>
+            <tbody >
                 <tr>
                     <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>{cores.cores.codCor}</td> 
                     <td style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>{cores.cores.nomeCor}</td> 
@@ -209,7 +213,7 @@ const AddProdCarrinho = (props) => {
 
     return(
         <div className="flex flex-col items-center pt-16 h-screen">
-            <h1>Incluir Pedido</h1>
+            <h1>Incluir Orçamento</h1>
             <div className="flex flex-row items-center">
                 <SelectCliente/>
                 <button
@@ -235,14 +239,14 @@ const AddProdCarrinho = (props) => {
                                 <thead>
                                     <tr style={{textAlign:"center"}}>
                                         <th rowspam="true" style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>Codigo cor</th> 
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>Nome cor</th>     
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>95</th>       
-                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}} >Prg. Futura</th>   
+                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>Nome cor</th>
+                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}}>95</th>
+                                        <th style={{border: "1px solid #dee2e6", textAlign:"center", padding: "0.75rem"}} >Prg. Futura</th>
                                     </tr> 
                                 </thead>
-                                {cor.map((item1, index) => {
+                                {cor.map((item1, key) => {
                                     return(
-                                        <ItemCores cores={item1}  key={index}/>
+                                        <ItemCores cores={item1} key={key}/>
                                     )
                                 })}
                             </table>

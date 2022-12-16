@@ -36,7 +36,7 @@ const EditarCondPagamento = () => {
                 <button
                     aria-label="get condPagamento"
                     onClick={() => dispatch(putCondpag(form, navigate(-1)))}
-                    >
+                >
                     Salvar
                 </button>
             </div>

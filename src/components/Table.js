@@ -1,18 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { getTransp, deleteTransp } from '../../store/Transportadora';
+import { getCondpag, deleteCondpag } from '../../store/CondPagamento';
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
-const Transportadora = () => {
-    const {dataTransp} = useSelector(state => state.transpReduce)
+const CondPagamento = () => {
+    const {dataCondPag} = useSelector(state => state.condPagReduce)
     const dispatch = useDispatch()
     const navigate = useNavigate();
-    
+
     useEffect(() => {
-        dispatch(getTransp())
+        dispatch(getCondpag())
     },[]);
 
-    const Item = ({item, index}) => {
+    
+    const Item = ({item}) => {
         useEffect(() => {
         },[item]);
         const [showModal, setShowModal] = useState(false);
@@ -21,12 +22,16 @@ const Transportadora = () => {
             return(
                 <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
                     <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                        {/*content*/}
                         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                        {/*header*/}
                             <div className="flex items-start justify-between px-3 py-3 border-b border-solid border-slate-200 rounded-t">
                                 <h3 className="text-sm font-semibold">
-                                    Deseja excluir transportadora {item.nomeTransp}?
+                                    Deseja excluir condição de pagamento {item.nomeCondPag}?
                                 </h3>
                             </div>
+                        {/*body*/}
+                        {/*footer*/}
                             <div className="flex items-center justify-end p-1 border-t border-solid border-slate-200 rounded-b">
                                 <button
                                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -38,7 +43,7 @@ const Transportadora = () => {
                                 <button
                                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                     type="button"
-                                    onClick={() => dispatch(deleteTransp(item, () => {setShowModal(false)}))}
+                                    onClick={() => dispatch(deleteCondpag(item, () => setShowModal(false)))}
                                 >
                                     Sim
                                 </button>
@@ -49,14 +54,13 @@ const Transportadora = () => {
             )
         }
 
-
         return(
-            <tr className="bg-gray-50 border dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 "  key={index} >
-                <td className="py-2 px-6">{item.codTransp}</td>
-                <td className="py-2 px-6">{item.nomeTransp}</td>
+            <tr className="bg-gray-50 border dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 " >
+                <td className="py-2 px-6">{item.codCondPag}</td>
+                <td className="py-2 px-6">{item.nomeCondPag}</td>
                 <td className="py-2 px-10">{item.ativo}</td>
                 <td className="flex flex-row py-2 px-6">
-                    <button onClick={() => navigate("/transportadoras/editar", {state: item})} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
+                    <button onClick={() => navigate("/condPagamentos/editar", {state: item})} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                         </svg>
@@ -74,17 +78,24 @@ const Transportadora = () => {
 
     return(              
         <div className="flex flex-col items-center pt-16 h-screen">
-            <h1>Transportadora</h1>        
+            <h1>Condição de pagamento</h1>
             <div className="flex py-2 px-2 bg-white dark:bg-gray-500 ">
-                <div className=" flex flex-row rounded-lg border border-gray-300">
-                    <svg className="self-center mx-1 w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
-                    <input type="text" id="table-search" className=" outline-gray-300 p-2 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-r-lg" placeholder="Search for items"/>
-                </div>
-                <button  onClick={() => navigate("/transportadoras/incluir")} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
+                {/* <div className="relative mt-1"> */}
+                    <div className=" flex flex-row rounded-lg border border-gray-300">
+                        <svg className="self-center mx-1 w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
+                        <input type="text" id="table-search" className=" outline-gray-300 p-2 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-r-lg" placeholder="Search for items"/>
+                    </div>
+                {/* </div> */}
+                <button  onClick={() => navigate("/condPagamentos/incluir")} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                 </button>
+                {/* <button  onClick={() => setRefresh(!refresh)} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
+                </button> */}
             </div>
             <div className="flex flex-col  w-11/12  mb-4 overflow-x-auto overflow-y-auto ">
                 <table className="text-sm  text-gray-500 dark:text-gray-400 ">
@@ -105,9 +116,9 @@ const Transportadora = () => {
                         </tr>
                     </thead>
                     <tbody>
-                    {dataTransp.map((item, index)=> {
+                    {dataCondPag.map((item, index)=> {
                         return(
-                            <Item item={item} index={index}/>
+                            <Item item={item} key={index}/>
                         )
                     })} 
                     </tbody>
@@ -117,5 +128,4 @@ const Transportadora = () => {
     )
 }
 
-
-export default Transportadora
+export default CondPagamento

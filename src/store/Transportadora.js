@@ -7,29 +7,28 @@ const initialTransp = []
 const transpReduce = createSlice({
     name: 'transportadora',
     initialState: {
-      dataTransp: initialTransp
+      dataTransp: initialTransp,
+      loading: true
     },
     reducers: {
       fetchTransp: (state, action) => {
         state.dataTransp = action.payload;
         // localStorage.setItem('dataTransp', JSON.stringify(action.payload))
-        },
+      },
 
       addTransp: (state, action) => {
-        state.dataTransp = [...state.dataTransp]
+        state.dataTransp = [...state.dataTransp, action.payload];
         // localStorage.setItem('dataTransp', JSON.stringify(action.payload))
-        },
+      },
 
       editTransp: (state, action) => {
-          state.dataTransp = [...state.dataTransp, action.payload];
-          let index = state.dataTransp.indexOf(action.payload)
-          state.dataTransp.splice(index, 1)
+        let index = state.dataTransp.findIndex(x => x.id === action.id)
+        state.dataTransp[index] = action.payload
           // localStorage.setItem('dataTransp', JSON.stringify(action.payload))
-        },
+      },
       
       delTransp: (state, action) => {
-        let index = state.dataTransp.indexOf(action.payload)
-        state.dataTransp.splice(index, 1)
+        state.dataTransp = state.dataTransp.filter((item) => item.id !== action.payload.id)
         // localStorage.setItem('dataTransp', JSON.stringify(action.payload))
       }
     },

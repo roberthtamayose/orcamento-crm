@@ -1,7 +1,8 @@
 // import React, { useEffect, useState } from "react";
+import { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectCliente} from '../../store/Clientes';
+import { selectCliente, getCliente} from '../../store/Clientes';
 
 
 
@@ -9,6 +10,9 @@ const SelectCliente = () => {
   const { dataCliente, selectCli } = useSelector(state => state.clienteReduce)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(getCliente())
+  },[]);
 
   return(
     <div className="flex flex-row">

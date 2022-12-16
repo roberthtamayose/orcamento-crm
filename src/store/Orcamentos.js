@@ -13,25 +13,21 @@ const orcamentoReduce = createSlice({
       fetchOrcamento: (state, action) => {
         state.dataOrcamento = action.payload;
         // localStorage.setItem('dataPedido', JSON.stringify(action.payload))
-        },
+      },
 
       addOrcamento: (state, action) => {
         state.dataOrcamento = [...state.dataOrcamento, action.payload];
         // localStorage.setItem('dataOrcamento', JSON.stringify(action.payload))
-        },
+      },
 
-      // editPedido: (state, action) => {
-      //     state.dataPedido = [...state.dataPedido, action.payload];
-      //     let index = state.dataPedido.indexOf(action.payload)
-      //     state.dataPedido.splice(index, 1)
-      //     localStorage.setItem('dataPedido', JSON.stringify(action.payload))
-      //   },
+      editOrcamento: (state, action) => {
+        let index = state.dataOrcamento.findIndex(x => x.id === action.id)
+        state.dataOrcamento[index] = action.payload
+      },
       
-      // delPedido: (state, action) => {
-      //   let index = state.dataPedido.indexOf(action.payload)
-      //   state.dataPedido.splice(index, 1)
-      //   localStorage.setItem('dataPedido', JSON.stringify(action.payload))
-      // }
+      delOrcamento: (state, action) => {
+        state.dataOrcamento = state.dataOrcamento.filter((item) => item.id !== action.payload.id)
+      }
     },
   })
 
@@ -41,7 +37,7 @@ const orcamentoReduce = createSlice({
   ///////////////////////////  Actions ///////////////////////////////
 
 // const { fetchPedido, addPedido, editPedido, delPedido } = pedidoReduce.actions
-const { fetchOrcamento, addOrcamento } = orcamentoReduce.actions
+const { fetchOrcamento, addOrcamento, editOrcamento, delOrcamento} = orcamentoReduce.actions
 
  
 export const getOrcamento = () => async dispatch => {
@@ -66,24 +62,24 @@ export const postOrcamento = (form, cb) => async dispatch => {
   }
 }
 
-// export const putPedido = (form,cb) => async dispatch => {
-//   try {
-//     const params = new URLSearchParams([['idPedido ', form.idPedido]]);
-//     await api.put(`/pedidos/${form.idPedido}`, form, params)
-//         .then((response) => dispatch(editPedido(response.data))).then(cb)
-//   }
-//   catch (e) {
-//       return console.error(e.message);
-//   }
-// }
+export const putOrcamento = (form, cb) => async dispatch => {
+  try {
+    const params = new URLSearchParams([['id ', form.id]]);
+    await api.put(`/orcamentos/${form.id}`, form, params)
+        .then((response) => dispatch(editOrcamento(response.data))).then(cb)
+  }
+  catch (e) {
+      return console.error(e.message);
+  }
+}
 
-// export const deletePedido = (form,cb) => async dispatch => {
-//   try {
-//     const params = new URLSearchParams([['idPedido ', form.idPedido]]);
-//     await api.delete(`/pedidos/${form.idPedido}`, form, params)
-//         .then(() => dispatch(delPedido(form))).then(cb)
-//   }
-//   catch (e) {
-//       return console.error(e.message);
-//   }
-// }
+export const deleteOrcamento = (form, cb) => async dispatch => {
+  try {
+    const params = new URLSearchParams([['id ', form.id]]);
+    await api.delete(`/orcamentos/${form.id}`, form, params)
+        .then(() => dispatch(delOrcamento(form))).then(cb)
+  }
+  catch (e) {
+      return console.error(e.message);
+  }
+}

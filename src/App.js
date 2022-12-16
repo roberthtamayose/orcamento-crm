@@ -11,17 +11,18 @@ import Transportadora from './screen/transportadora/Transportadora'
 import IncluirTransportadora from './screen/transportadora/IncluirTransportadora'
 import EditarTransportadora from './screen/transportadora/EditarTransportadora'
 import IncluirOrcamento from './screen/orcamento/IncluirOrcamento'
+import EditarOrcamento from './screen/orcamento/EditarOrcamento'
 import Orcamento from './screen/orcamento/Orcamento'
-import Login from './screen/login/Login'
+// import Login from './screen/login/Login'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { getTransp } from './store/Transportadora';
-import { getCondpag } from './store/CondPagamento';
-import { getFilial } from './store/Filiais';
-import { getCliente } from './store/Clientes';
-import { getDispProd } from './store/produtos';
+// import { useDispatch } from 'react-redux';
+// import { getTransp } from './store/Transportadora';
+// import { getCondpag } from './store/CondPagamento';
+// import { getFilial } from './store/Filiais';
+// import { getCliente } from './store/Clientes';
+// import { getDispProd } from './store/produtos';
 
 // import { getUser } from './store/Usuarios';
 
@@ -37,16 +38,16 @@ import {
 
 
 function App() {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   // const {dataUser} = useSelector(state => state.userReduce)
 
   useEffect(() => {
-    dispatch(getTransp())
-    dispatch(getFilial())
-    dispatch(getCondpag()) 
-    // dispatch(getPedido())    
-    dispatch(getCliente())    
-    dispatch(getDispProd())    
+    // dispatch(getTransp())
+    // dispatch(getFilial())
+    // dispatch(getCondpag()) 
+    // // dispatch(getPedido())    
+    // dispatch(getCliente())    
+    // dispatch(getDispProd())    
   },[]);
 // },[dataUser]);
 
@@ -57,7 +58,7 @@ function App() {
             <Sidebar/>
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<IncluirOrcamento/>}/>
+                <Route path="/" element={<Orcamento/>}/>
                 {/* <Route path="/Pedido" element={<Pedido/>}/>
                 <Route path="/Pedido/incluir" element={<IncluirPedido/>}/>
                 <Route path="/Pedido/editar" element={<EditarCarrinho/>}/> */}
@@ -68,6 +69,7 @@ function App() {
                 <Route path="/condPagamentos/incluir" element={<IncluirCondPagamento/>}/>
                 <Route path="/condPagamentos/editar" element={<EditarCondPagamento/>}/>
                 <Route path="/orcamentos/incluir" element={<IncluirOrcamento/>}/>
+                <Route path="/orcamentos/editar" element={<EditarOrcamento/>}/>
                 <Route path="/orcamentos" element={<Orcamento/>}/>
               </Routes>
             </BrowserRouter>

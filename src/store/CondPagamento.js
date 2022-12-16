@@ -7,30 +7,29 @@ const initialCondPagamento = []
 const condPagReduce = createSlice({
     name: 'condPagamento',
     initialState: {
-      dataCondPag: initialCondPagamento
+      dataCondPag: initialCondPagamento,
+      loading: true
     },
     reducers: {
       fetchCondPag: (state, action) => {
         state.dataCondPag = action.payload;
+        state.loading = false;
         // localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
         },
 
       addCondPag: (state, action) => {
-        state.dataCondPag = [...state.dataCondPag];
+        state.dataCondPag = [...state.dataCondPag, action.payload];
         // localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
         },
 
       editCondPag: (state, action) => {
-          state.dataCondPag = [...state.dataCondPag, action.payload];
-          let index = state.dataCondPag.indexOf(action.payload)
-          state.dataCondPag.splice(index, 1)
+        let index = state.dataCondPag.findIndex(x => x.id === action.id)
+        state.dataCondPag[index] = action.payload
           // localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
         },
       
       delCondPag: (state, action) => {
-        let index = state.dataCondPag.indexOf(action.payload)
-        state.dataCondPag.splice(index, 1)
-        // localStorage.setItem('dataCondPag', JSON.stringify(action.payload))
+        state.dataCondPag = state.dataCondPag.filter((item) => item.id !== action.payload.id)
       }
     },
   })

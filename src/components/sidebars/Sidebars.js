@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
 import { Navbar, Offcanvas, Nav, NavDropdown, Container } from 'react-bootstrap';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectFilial } from '../../store/Filiais';
-
+import { selectFilial, getFilial} from '../../store/Filiais';
 
 
 const Sidebar = () => {
@@ -10,6 +10,9 @@ const Sidebar = () => {
   const {dataFilial, select} = useSelector(state => state.filialReduce)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(getFilial())
+  },[]);
 
   return(
     <div className="fixed top-0 left-0 right-0">
