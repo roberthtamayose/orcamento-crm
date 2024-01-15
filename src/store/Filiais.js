@@ -16,6 +16,7 @@ const filialReduce = createSlice({
     },
     reducers: {
       fetchFilial: (state, action) => {
+
         state.dataFilial = action.payload;
         // localStorage.setItem('dataFilial', JSON.stringify(action.payload))
       },
@@ -36,6 +37,7 @@ const { fetchFilial, setFilial } = filialReduce.actions
 export const getFilial = () => async dispatch => {
     try {
       // const params = new URLSearchParams([['limit', 10]]);
+
       await api.get('/filiais').then((response) => dispatch(fetchFilial(response.data)))
     }
     catch (e) {

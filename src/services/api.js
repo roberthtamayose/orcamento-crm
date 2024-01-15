@@ -17,7 +17,6 @@ export default api;
 
 
 
-
 // import axios from "axios";
 
 // axios.defaults.baseURL = 'http://10.111.70.10:8000';

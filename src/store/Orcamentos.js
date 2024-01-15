@@ -40,9 +40,9 @@ const orcamentoReduce = createSlice({
 const { fetchOrcamento, addOrcamento, editOrcamento, delOrcamento} = orcamentoReduce.actions
 
  
-export const getOrcamento = () => async dispatch => {
+export const getOrcamento = (filial) => async dispatch => {
     try {
-      const params = new URLSearchParams([['limit', 10],['filter', ['numOrc', 'numRevisao']]]);
+      const params = new URLSearchParams([['filial', filial],['limit', 10],['filter', ['numOrc', 'numRevisao']]]);
       await api.get('/orcamentos', { params })
           .then((response) => dispatch(fetchOrcamento(response.data)))
     }

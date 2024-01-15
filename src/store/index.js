@@ -7,6 +7,7 @@ import clienteReduce from './Clientes'
 import prodReduce from './produtos'
 import carrinhoReduce from './Carrinho'
 import userReduce from './Usuarios'
+import pedidoReduce from './Pedidos'
 
 import api from "../services/api";
 import { combineReducers } from 'redux'
@@ -20,7 +21,8 @@ const reducer = combineReducers({
     clienteReduce,
     prodReduce,
     carrinhoReduce,
-    userReduce
+    userReduce,
+    pedidoReduce
   })
 
 const store =  configureStore({

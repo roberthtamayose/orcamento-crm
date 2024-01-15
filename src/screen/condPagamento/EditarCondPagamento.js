@@ -3,8 +3,6 @@ import { putCondpag } from '../../store/CondPagamento';
 import { useState } from 'react';
 import { useNavigate , useLocation} from "react-router-dom";
 
-import '../../App.css';
-
 const EditarCondPagamento = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate();

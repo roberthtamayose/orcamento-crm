@@ -1,5 +1,4 @@
-import './App.css';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import Pedido from './screen/pedido/Pedido';
 // import IncluirPedido from './screen/pedido/IncluirPedido';
 // import EditarCarrinho from './screen/pedido/EditarCarrinho';
@@ -11,9 +10,11 @@ import Transportadora from './screen/transportadora/Transportadora'
 import IncluirTransportadora from './screen/transportadora/IncluirTransportadora'
 import EditarTransportadora from './screen/transportadora/EditarTransportadora'
 import IncluirOrcamento from './screen/orcamento/IncluirOrcamento'
+import FinalizaPedido from './screen/orcamento/pedido/FinalizaPedido'
 import EditarOrcamento from './screen/orcamento/EditarOrcamento'
 import Orcamento from './screen/orcamento/Orcamento'
-// import Login from './screen/login/Login'
+
+import Login from './screen/login/Login'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { useEffect } from 'react';
@@ -24,7 +25,7 @@ import { useEffect } from 'react';
 // import { getCliente } from './store/Clientes';
 // import { getDispProd } from './store/produtos';
 
-// import { getUser } from './store/Usuarios';
+import { getUser } from './store/Usuarios';
 
 // import Navbar from './sidebar'
 
@@ -39,7 +40,7 @@ import {
 
 function App() {
   // const dispatch = useDispatch()
-  // const {dataUser} = useSelector(state => state.userReduce)
+  const {dataUser} = useSelector(state => state.userReduce)
 
   useEffect(() => {
     // dispatch(getTransp())
@@ -52,7 +53,7 @@ function App() {
 // },[dataUser]);
 
 
-  // if (dataUser[0] && getUser(dataUser[0])){
+  if (dataUser[0] && getUser(dataUser[0])){
       return (
           <Container fluid>
             <Sidebar/>
@@ -69,24 +70,26 @@ function App() {
                 <Route path="/condPagamentos/incluir" element={<IncluirCondPagamento/>}/>
                 <Route path="/condPagamentos/editar" element={<EditarCondPagamento/>}/>
                 <Route path="/orcamentos/incluir" element={<IncluirOrcamento/>}/>
+                <Route path="/orcamentos/incluir/:id" element={<IncluirOrcamento/>}/>
+                <Route path="/orcamentos/incluir/:id/finaliza" element={<FinalizaPedido/>}/>
                 <Route path="/orcamentos/editar" element={<EditarOrcamento/>}/>
                 <Route path="/orcamentos" element={<Orcamento/>}/>
               </Routes>
             </BrowserRouter>
           </Container>
       )
-  // }
-  // else{
-  //   return (
-  //     <Container fluid>
-  //       <BrowserRouter>
-  //         <Routes>
-  //           <Route path="/" element={<Login/>}/>
-  //         </Routes>
-  //       </BrowserRouter>
-  //     </Container>
-  //   )
-  // }
+  }
+  else{
+    return (
+      <Container fluid>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Login/>}/>
+          </Routes>
+        </BrowserRouter>
+      </Container>
+    )
+  }
   
 }
 

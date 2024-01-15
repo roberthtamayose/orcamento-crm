@@ -1,131 +1,91 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { getCondpag, deleteCondpag } from '../../store/CondPagamento';
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Window } from 'react-fns';
 
-const CondPagamento = () => {
-    const {dataCondPag} = useSelector(state => state.condPagReduce)
-    const dispatch = useDispatch()
-    const navigate = useNavigate();
+const ResponsiveFlatList = ({data, column}) => {
+  const [screenWidth, setScreenWidth] = useState(Window.width);
 
-    useEffect(() => {
-        dispatch(getCondpag())
-    },[]);
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenWidth(Window.width);
+    };
+    Window.addEventListener('resize', handleResize);
+    return () => {
+      Window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
-    
-    const Item = ({item}) => {
-        useEffect(() => {
-        },[item]);
-        const [showModal, setShowModal] = useState(false);
 
-        const Modal = ({item}) => {
-            return(
-                <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                    <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                        {/*content*/}
-                        <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                        {/*header*/}
-                            <div className="flex items-start justify-between px-3 py-3 border-b border-solid border-slate-200 rounded-t">
-                                <h3 className="text-sm font-semibold">
-                                    Deseja excluir condição de pagamento {item.nomeCondPag}?
-                                </h3>
-                            </div>
-                        {/*body*/}
-                        {/*footer*/}
-                            <div className="flex items-center justify-end p-1 border-t border-solid border-slate-200 rounded-b">
-                                <button
-                                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                    type="button"
-                                    onClick={() => setShowModal(false)}
-                                >
-                                    Não
-                                </button>
-                                <button
-                                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                    type="button"
-                                    onClick={() => dispatch(deleteCondpag(item, () => setShowModal(false)))}
-                                >
-                                    Sim
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+  const renderItem = ({ item }) => {
+    return (
+      <div style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <p>{item.title}</p>
+      </div>
+    );
+  };
+
+  if(!data && !column){
+    return (<div>Não possui dados cadastrados</div>)
+  }
+
+  return (
+    <div className="overflow-x-auto">
+        <div className="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
+            <div className="w-full lg:w-5/6">
+                <div className="bg-white shadow-md rounded my-6">
+                    <table className="min-w-max w-full table-auto">
+                        <thead>
+                            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                              {column.map((tittle) => {
+                                <th className="py-3 px-6 text-left">{tittle}</th>
+                                })
+                              }
+                               
+                            </tr>
+                        </thead>
+                        <tbody className="text-gray-600 text-sm font-light">
+                          {column.map
+                            <tr className="border-b border-gray-200 hover:bg-gray-100">
+                                <td className="py-3 px-6 text-left whitespace-nowrap">
+                                    <div className="flex items-center">
+                                        <span className="font-medium">{data.}</span>
+                                    </div>
+                                </td>
+                                <td className="py-3 px-6 text-left">
+                                    <div className="flex items-center">
+                                        <span>Eshal Rosas</span>
+                                    </div>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                    <span className="bg-purple-200 text-purple-600 py-1 px-3 rounded-full text-xs">Active</span>
+                                </td>
+                                <td className="py-3 px-6 text-center">
+                                    <div className="flex item-center justify-center">
+                                        <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </div>
+                                        <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                                        </div>
+                                        <div className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            )
-        }
-
-        return(
-            <tr className="bg-gray-50 border dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 " >
-                <td className="py-2 px-6">{item.codCondPag}</td>
-                <td className="py-2 px-6">{item.nomeCondPag}</td>
-                <td className="py-2 px-10">{item.ativo}</td>
-                <td className="flex flex-row py-2 px-6">
-                    <button onClick={() => navigate("/condPagamentos/editar", {state: item})} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                        </svg>
-                    </button>
-                    <button onClick={() => setShowModal(true)} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                        </svg>
-                    </button>
-                </td>
-                <td>{showModal ? <Modal item={item}/> : null}</td>
-            </tr>
-        )
-    }
-
-    return(              
-        <div className="flex flex-col items-center pt-16 h-screen">
-            <h1>Condição de pagamento</h1>
-            <div className="flex py-2 px-2 bg-white dark:bg-gray-500 ">
-                {/* <div className="relative mt-1"> */}
-                    <div className=" flex flex-row rounded-lg border border-gray-300">
-                        <svg className="self-center mx-1 w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path></svg>
-                        <input type="text" id="table-search" className=" outline-gray-300 p-2 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-r-lg" placeholder="Search for items"/>
-                    </div>
-                {/* </div> */}
-                <button  onClick={() => navigate("/condPagamentos/incluir")} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                </button>
-                {/* <button  onClick={() => setRefresh(!refresh)} className="bg-gray-100 border-2 border-gray-200 hover:border-gray-400 hover:bg-gray-200 mx-1 py-2 px-2 rounded inline-flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                    </svg>
-                </button> */}
-            </div>
-            <div className="flex flex-col  w-11/12  mb-4 overflow-x-auto overflow-y-auto ">
-                <table className="text-sm  text-gray-500 dark:text-gray-400 ">
-                    <thead className=" text-left text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" className="w-1/5 py-2 px-6">
-                                Codigo
-                            </th>
-                            <th scope="col" className="w-3/5 py-2 px-6">
-                                Nome
-                            </th>
-                            <th scope="col" className="w-1/6 py-2 px-6">
-                                Ativo
-                            </th>
-                            <th scope="col" className=" w-1/6 py-2 px-6">
-                                Ações
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {dataCondPag.map((item, index)=> {
-                        return(
-                            <Item item={item} key={index}/>
-                        )
-                    })} 
-                    </tbody>
-                </table>
             </div>
         </div>
-    )
-}
+    </div>
+  );
+};
 
-export default CondPagamento
+export default ResponsiveFlatList;

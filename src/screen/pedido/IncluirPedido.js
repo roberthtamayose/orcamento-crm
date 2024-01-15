@@ -11,8 +11,6 @@ import { postCarrinho } from '../../store/Carrinho';
 import { Container, Accordion, Button, Modal, Form, Row, Col, InputGroup} from 'react-bootstrap';
 import SelectCliente from '../../components/Clientes/SelectCliente'
 import EditarCarrinho from './EditarCarrinho'
-///////////////// CSS //////////////
-import '../../App.css';
 
 const IncluirPedido = () => {
     // const {selectCli} = useSelector(state => state.clienteReduce)

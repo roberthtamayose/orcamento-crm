@@ -9,8 +9,6 @@ import { getCarrinho, putCarrinho, deleteCarrinho} from '../../store/Carrinho';
 ///////////////// COMPONENTS //////////////
 // import { Container, Accordion, Button, Modal, Form, Row, Col, InputGroup} from 'react-bootstrap';
 // import SelectCliente from '../../components/Clientes/SelectCliente'
-///////////////// CSS //////////////
-import '../../App.css';
 
 
 const EditarCarrinho = () => {

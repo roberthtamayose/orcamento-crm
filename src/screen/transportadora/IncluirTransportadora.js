@@ -3,8 +3,6 @@ import { postTransp } from '../../store/Transportadora';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-import '../../App.css';
-
 const IncluirTransportadora = () => {
     // const {dataTransp} = useSelector(state => state.transpReduce)
     const dispatch = useDispatch()

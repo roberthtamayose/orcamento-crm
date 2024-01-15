@@ -1,75 +1,63 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 import api from "../services/api";
 
+const initialCliente = [];
 
-const initialCliente = []
-
-const initialSelect= localStorage.getItem('selectCli')
-  ? JSON.parse(localStorage.getItem('selectCli'))
-  : 0
+const initialSelect = []
+// localStorage.getItem("selectCli")
+//   ? JSON.parse(localStorage.getItem("selectCli"))
+//   : 0;
 
 const clienteReduce = createSlice({
-    name: 'cliente',
-    initialState: {
-      dataCliente: initialCliente,
-      selectCli: initialSelect
+  name: "cliente",
+  initialState: {
+    dataCliente: initialCliente,
+    selectCli: initialSelect,
+  },
+  reducers: {
+    fetchCliente: (state, action) => {
+      state.dataCliente = action.payload;
+      // localStorage.setItem('dataCliente', JSON.stringify(action.payload))
     },
-    reducers: {
-      fetchCliente: (state, action) => {
-        state.dataCliente = action.payload;
-        // localStorage.setItem('dataCliente', JSON.stringify(action.payload))
-        },
-      setCliente: (state, action) => {
-          state.selectCli = action.payload;
-          localStorage.setItem('selectCli', JSON.stringify(action.payload))
-        },
-
-      // addCliente: (state, action) => {
-      //   state.dataCliente = [...state.dataCliente, action.payload];
-      //   localStorage.setItem('dataCliente', JSON.stringify(action.payload))
-      //   },
-
-      // editCliente: (state, action) => {
-      //     state.dataCliente = [...state.dataCliente, action.payload];
-      //     let index = state.dataCliente.indexOf(action.payload)
-      //     state.dataCliente.splice(index, 1)
-      //     localStorage.setItem('dataCliente', JSON.stringify(action.payload))
-      //   },
-      
-      // delCliente: (state, action) => {
-      //   let index = state.dataCliente.indexOf(action.payload)
-      //   state.dataCliente.splice(index, 1)
-      //   localStorage.setItem('dataCliente', JSON.stringify(action.payload))
-      // }
+    setCliente: (state, action) => {
+      state.selectCli = action.payload;
+      // localStorage.setItem("selectCli", JSON.stringify(action.payload));
     },
-  })
 
-  export default clienteReduce.reducer
+  },
+});
 
+export default clienteReduce.reducer;
 
-  ///////////////////////////  Actions ///////////////////////////////
+///////////////////////////  Actions ///////////////////////////////
 
-const { fetchCliente, setCliente} = clienteReduce.actions
- 
-export const getCliente = () => async dispatch => {
-    try {
-      const params = new URLSearchParams([['vend_id', 1]]);
-      await api.get('/clientes', { params })
-          .then((response) => dispatch(fetchCliente(response.data)))
-    }
-    catch (e) {
-        return console.error(e.message);
-    }
-}
+const { fetchCliente, setCliente } = clienteReduce.actions;
 
-export const selectCliente = (idCliente) => async dispatch => {
+export const getCliente = (codVendedor) => async (dispatch) => {
   try {
-    dispatch(setCliente(idCliente))
+    await api
+      .get("/clientes", {params: {codVendedor}})
+      .then((response) => dispatch(fetchCliente(response.data)));
+  } catch (e) {
+    return console.error(e.message);
   }
-  catch (e) {
-      return console.error(e.message);
+};
+
+export const selectCliente = (codSharp, nmCliente) => async (dispatch) => {
+  try {
+    if(codSharp){
+      await api
+      .get("/clientes/", {params: {codSharp}})
+      .then((response) => dispatch(setCliente(response.data[0])));
+    }else {
+      await api
+      .get("/clientes/", {params: {nmCliente}})
+      .then((response) => dispatch(setCliente(response.data[0])));
+    }
+  } catch (e) {
+    return console.error(e.message);
   }
-}
+};
 
 // export const postCliente = (form, cb) => async dispatch => {
 //   try {

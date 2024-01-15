@@ -12,27 +12,26 @@ const carrinhoReduce = createSlice({
     reducers: {
       fetchCarrinho: (state, action) => {
         state.dataCarrinho = action.payload;
-        // localStorage.setItem('dataCarrinho', JSON.stringify(action.payload))
         },
 
       addCarrinho: (state, action) => {
         state.dataCarrinho = [...state.dataCarrinho, action.payload];
-        // localStorage.setItem('dataCarrinho', JSON.stringify(action.payload))
         },
 
       editCarrinho: (state, action) => {
           state.dataCarrinho = [...state.dataCarrinho, action.payload];
           let index = state.dataCarrinho.indexOf(action.payload)
           state.dataCarrinho.splice(index, 1)
-          // localStorage.setItem('dataCarrinho', JSON.stringify(action.payload))
         },
       
       delCarrinho: (state, action) => {
         let index = state.dataCarrinho.indexOf(action.payload)
         state.dataCarrinho.splice(index, 1)
-
-        // localStorage.setItem('dataCarrinho', JSON.stringify(action.payload))
+      },
+      clearCarrinho: (state) => {
+        state.dataCarrinho = []
       }
+
     },
   })
 
@@ -43,12 +42,10 @@ const carrinhoReduce = createSlice({
 
 const { fetchCarrinho, addCarrinho, editCarrinho, delCarrinho } = carrinhoReduce.actions
  
-export const getCarrinho = () => async dispatch => {
+export const getCarrinho = (filial, codCliente, codVendedor) => async dispatch => {
     try {
-      let idFilial = 1
-      let idUsuario = 1
       // const params = new URLSearchParams([['limit', 10]]);
-      await api.get('/carrinhos', { params: {idFilial, idUsuario} })
+      await api.get('/carrinhos', { params: {filial, codCliente, codVendedor} })
           .then((response) => dispatch(fetchCarrinho(response.data)))
     }
     catch (e) {
@@ -59,10 +56,12 @@ export const getCarrinho = () => async dispatch => {
 export const postCarrinho = (form) => async dispatch => {
   try {
     // const params = new URLSearchParams([['limit', 10]]);
-    let idFilial = 1
-    let idUsuario = 1
+    let filial = form.filial
+    let codVendedor = form.codVendedor
+    let codCliente = form.codCliente
+    
     // const params = new URLSearchParams([['idFilial', '1'],['idUsuario', '1']]);
-    await api.post('/carrinhos', form, { params: {idFilial, idUsuario} })
+    await api.post('/carrinhos', form, { params: {filial, codCliente, codVendedor} })
         .then((response) => {console.log("response....",response);dispatch(addCarrinho(response.data))})
   }
   catch (e) {
@@ -73,7 +72,7 @@ export const postCarrinho = (form) => async dispatch => {
 export const putCarrinho = (form,cb) => async dispatch => {
   try {
     // const params = new URLSearchParams([['idPedido ', form.idPedido]]);
-    await api.put(`/carrinhos/${form.idPedido}`, form, {params: {idPedido:form.idPedido}})
+    await api.put(`/carrinhos/${form.id}`, form, {params: {id:form.id}})
         .then((response) => dispatch(editCarrinho(response.data))).then(cb)
   }
   catch (e) {

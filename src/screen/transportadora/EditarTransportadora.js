@@ -3,8 +3,6 @@ import { putTransp } from '../../store/Transportadora';
 import { useState } from 'react';
 import { useNavigate , useLocation} from "react-router-dom";
 
-import '../../App.css';
-
 const EditarTransportadora = () => {
     // const {dataTransp} = useSelector(state => state.transpReduce)
     const dispatch = useDispatch()

@@ -1,23 +1,26 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Container } from 'react-bootstrap';
-import '../../App.css';
-import { useSelector } from 'react-redux';
-import { useNavigate } from "react-router-dom";
-// import { getPedido } from '../../store/Pedidos';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPedido } from '../../store/Pedidos';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+
 
 const Pedido = () => {
     const {dataPedido} = useSelector(state => state.pedidoReduce)
     // const dispatch = useDispatch()
     const navigate = useNavigate();
     const [refresh, setRefresh] = useState(true);
+    // const { id } = useParams();
+    const dispatch = useDispatch()
 
 
-    // useEffect(() => {
-    //     dispatch(getPedido())
-    // },[refresh]);
+    useEffect(() => {
+        dispatch(getPedido())
+    },[refresh]);
     
     return(
         <Container className='Container'>
+            {/* {console.log()dataPedido} */}
             <h1>Pedido</h1>
             <button
                 aria-label="get Pedido"
@@ -32,7 +35,7 @@ const Pedido = () => {
                 style={{margin: '10px'}}
                 >
                 Incluir
-            </button> 
+            </button>
             <div className="table-responsive ">
                 <table className="table table-bordered" >
                         <thead>

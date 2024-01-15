@@ -1,23 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getUser } from '../../store/Usuarios';
-import { Container, Row, InputGroup, Form, Col, Button } from 'react-bootstrap';
+import { Row, InputGroup, Form, Col } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from 'react';
+// import {  useState } from 'react';
 import { useFormik } from 'formik';
-import { object, string, number, date, InferType, bool} from 'yup';
 
-const schema = object().shape({
-    email: string().email().required(),
-    senha: string().required(),
-    terms: bool().required().oneOf([true], 'Terms must be accepted'),
-  });
   
 const Login = () => {
-    const {dataUser} = useSelector(state => state.userReduce)
+    // const {dataUser} = useSelector(state => state.userReduce)
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
-    const [refresh, setRefresh] = useState(true);
 
 
         // fetchUser()
@@ -28,10 +21,7 @@ const Login = () => {
             senha:''
         },
         errors:"",
-        onSubmit: (values) => {
-            dispatch(getUser(values, () => navigate("/Pedido")))
-        },
-        
+        onSubmit: (values) => dispatch(getUser(values, () => navigate("/Orcamento")))    
     });
     // style={{ flex: "1 1 auto", padding: "1.25rem", textAlign:"center"}}
     return(

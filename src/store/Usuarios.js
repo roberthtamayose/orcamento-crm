@@ -49,8 +49,8 @@ export const getUser = (form, cb) => async dispatch => {
     console.log("FOI!!!!!")
         const params = new URLSearchParams([['emailUsuario', form.email]]);
         const funcRt = (response) => {
-            dispatch(fetchUser(response.data))
-            cb()
+            dispatch(fetchUser(response.data)).then(()=>cb())
+            
         }
         await api.get('/usuarios', { params })
             .then((response) => {response.data[0] ? response.data[0].senhaUsuario === form.senha ? funcRt(response) : console.log("Errou a senha"): console.log("Errou o email")})

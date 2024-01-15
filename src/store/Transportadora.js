@@ -44,7 +44,7 @@ const { fetchTransp, addTransp, editTransp, delTransp } = transpReduce.actions
 export const getTransp = () => async dispatch => {
     try {
       const params = new URLSearchParams([['limit', 10]]);
-      await api.get('/transportadoras', { params })
+      await api.get('/transportadoras')
           .then((response) => dispatch(fetchTransp(response.data)))
     }
     catch (e) {
